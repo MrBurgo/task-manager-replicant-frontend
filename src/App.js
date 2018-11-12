@@ -16,6 +16,7 @@ class App extends Component {
       tasks: [],
       users: []
     }
+    this.post = this.post.bind(this);
   }
 
   async componentDidMount() {

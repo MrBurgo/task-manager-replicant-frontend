@@ -5,17 +5,17 @@ class PostForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: '',
+            task_name: '',
             body: ''
         }
         this.textChange = this.textChange.bind(this);
     }
 
     textChange = (e) => {
-        if (e.target.id === 'title') {
+        if (e.target.id === 'task_name') {
             this.setState({
                 ...this.state,
-                title: e.target.value
+                task_name: e.target.value
             })
         } else {
             this.setState({
@@ -25,21 +25,27 @@ class PostForm extends Component {
         }
     }
 
-    post = () => {
+    post = (e) => {
+        e.preventDefault();
         const data = {
-            title: this.state.title,
-            body: this.state.body
-        }
-        this.props.post(data)
-    }
+            task_name: this.state.task_name,
+            body: this.state.body,
+            user_id: 1
+        };
+        this.props.post(data);
+        this.setState({
+            task_name: '',
+            body: ''
+        })
+    };
 
     render() {
         return (
             <div>
-                <form onSubmit={this.onSubmit}>
-                    <input placeholder="title" id="title" value={this.state.title} onChange={this.textChange} />
-                    <input placeholder="body" id="body" value={this.state.body} onChange={this.textChange} />
-                    <input type="submit" onSubmit={this.post} />
+                <form onSubmit={this.post}>
+                    <input placeholder="Title" id="task_name" value={this.state.task_name} onChange={this.textChange} />
+                    <input placeholder="Body" id="body" value={this.state.body} onChange={this.textChange} />
+                    <input type="submit" />
                 </form>
             </div>
         );
